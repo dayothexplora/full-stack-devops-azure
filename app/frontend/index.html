@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Stack DevOps Platform</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 2rem;
+        background-color: #f5f5f5;
+      }
+      h1 {
+        margin-bottom: 1rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      #response {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #ffffff;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        min-height: 2rem;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Full Stack DevOps Platform</h1>
+    <button id="fetchBtn">Get Data</button>
+    <div id="response"></div>
+
+    <script>
+      const btn = document.getElementById('fetchBtn');
+      const responseDiv = document.getElementById('response');
+
+      btn.addEventListener('click', async () => {
+        responseDiv.textContent = 'Loading...';
+        try {
+          const res = await fetch('/api/data');
+          if (!res.ok) {
+            throw new Error(`Request failed with status ${res.status}`);
+          }
+          // Try to parse as JSON, fall back to text
+          const text = await res.text();
+          try {
+            const json = JSON.parse(text);
+            responseDiv.textContent = JSON.stringify(json, null, 2);
+          } catch (e) {
+            responseDiv.textContent = text;
+          }
+        } catch (err) {
+          responseDiv.textContent = 'Error: ' + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>
