@@ -42,7 +42,7 @@
       btn.addEventListener('click', async () => {
         responseDiv.textContent = 'Loading...';
         try {
-          const res = await fetch('/api/data');
+          const res = await fetch('https://localhost:5000/api/data');
           if (!res.ok) {
             throw new Error(`Request failed with status ${res.status}`);
           }

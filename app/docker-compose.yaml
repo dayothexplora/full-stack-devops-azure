@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:15
+    # add environment variables, ports, volumes
+  
+  backend:
+    build: ./backend
+    # add ports, depends_on database
+  
+  frontend:
+    build: ./frontend
+    # add ports, depends_on backend
