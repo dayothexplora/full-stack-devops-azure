@@ -3,11 +3,22 @@ services:
   database:
     image: postgres:15
     # add environment variables, ports, volumes
+    environment:
+      POSTGRES_DB: devops_db
+      POSTGRES_USER: devops_user
+      POSTGRES_PASSWORD: devops_pass
+    ports:
+      - "5432:5432"
   
   backend:
     build: ./backend
     # add ports, depends_on database
+    ports:
+    - "5000:5000"
+    
   
   frontend:
     build: ./frontend
     # add ports, depends_on backend
+    ports:
+    - "80:80"
